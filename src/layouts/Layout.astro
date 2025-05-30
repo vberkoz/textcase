@@ -1,4 +1,6 @@
 ---
+import { GoogleAnalytics } from 'astro-google-analytics';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -38,6 +40,9 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+    
+    <!-- Google Analytics -->
+    <GoogleAnalytics id="G-FM4XH7RN00" />
   </head>
   <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
     <slot />
