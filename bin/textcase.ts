@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
-import { TextcaseStack } from '../lib/textcase-stack';
+import { Textcase } from '../lib/textcase';
 
 const app = new cdk.App();
-new TextcaseStack(app, 'TextcaseStack', {
+new Textcase(app, 'Textcase', {
   domainName: 'vberkoz.com',
   subdomain: 'textcase',
   env: {
