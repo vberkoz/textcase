@@ -1,0 +1,90 @@
+---
+const title = "Text Case Converter";
+const subtitle = "Transform your text to any case format instantly";
+---
+
+<header class="bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-8 px-4 sm:px-6 md:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+      <div class="mb-4 md:mb-0">
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">
+          {title}
+        </h1>
+        <p class="mt-2 text-primary-100">{subtitle}</p>
+      </div>
+      
+      <div class="flex items-center space-x-4">
+        <button
+          id="theme-toggle"
+          type="button"
+          class="p-2 rounded-lg bg-white/10 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors duration-200"
+          aria-label="Toggle dark mode"
+        >
+          <!-- Sun icon -->
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            id="theme-toggle-light-icon"
+            class="h-5 w-5 hidden" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" 
+            />
+          </svg>
+          
+          <!-- Moon icon -->
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            id="theme-toggle-dark-icon"
+            class="h-5 w-5 hidden" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" 
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Theme toggle functionality
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const lightIcon = document.getElementById('theme-toggle-light-icon');
+  const darkIcon = document.getElementById('theme-toggle-dark-icon');
+  
+  // Set initial icon state
+  if (document.documentElement.classList.contains('dark')) {
+    lightIcon?.classList.remove('hidden');
+    darkIcon?.classList.add('hidden');
+  } else {
+    lightIcon?.classList.add('hidden');
+    darkIcon?.classList.remove('hidden');
+  }
+  
+  themeToggleBtn?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    
+    if (document.documentElement.classList.contains('dark')) {
+      localStorage.setItem('theme', 'dark');
+      lightIcon?.classList.remove('hidden');
+      darkIcon?.classList.add('hidden');
+    } else {
+      localStorage.setItem('theme', 'light');
+      lightIcon?.classList.add('hidden');
+      darkIcon?.classList.remove('hidden');
+    }
+  });
+</script>
