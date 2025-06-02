@@ -1,70 +1,67 @@
 ---
+import { Button } from './ui/button';
+import { Check, Copy } from "lucide-react"
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+
 export interface Props {
-  id: string;
-  label: string;
-  value: string;
-  placeholder?: string;
-  onChange?: string;
-  autoFocus?: boolean;
-  description?: string;
+    id: string;
+    label: string;
+    value: string;
+    placeholder?: string;
+    onChange?: string;
+    autoFocus?: boolean;
+    description?: string;
 }
 
-const { 
-  id, 
-  label, 
-  value = '', 
-  placeholder = 'Enter text here...', 
-  onChange = '', 
-  autoFocus = false,
-  description = ''
+const {
+    id,
+    label,
+    value = "",
+    placeholder = "Enter text here...",
+    onChange = "",
+    autoFocus = false,
+    description = "",
 } = Astro.props;
 ---
 
-<div class="relative rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden bg-white dark:bg-gray-800 transition-all duration-200 hover:shadow-md focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 group animate-fade-in">
-  <label 
-    for={id} 
-    class="block text-sm font-medium text-gray-700 dark:text-gray-300 px-4 pt-3 pb-1"
-  >
-    {label}
-    {description && (
-      <span class="ml-1 text-xs text-gray-500 dark:text-gray-400 font-normal">
-        ({description})
-      </span>
-    )}
-  </label>
-  
-  <div class="relative">
-    <textarea
-      id={id}
-      name={id}
-      class="w-full px-4 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 resize-none h-24 focus:outline-none transition-all duration-200 ease-in-out"
-      placeholder={placeholder}
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-      data-value={value}
-      autofocus={autoFocus}
-      aria-label={label}
-    >{value}</textarea>
-    
-    <button
-      type="button"
-      class="copy-btn absolute right-3 bottom-3 p-2 text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 bg-gray-100 dark:bg-gray-700 rounded-md opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-200 ease-in-out"
-      aria-label={`Copy ${label} text`}
-      title="Copy to clipboard"
-      data-copy-id={id}
-    >
-      <span class="sr-only">Copy to clipboard</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-      </svg>
-    </button>
-    
-    <div class="copy-success hidden absolute right-3 bottom-3 p-2 text-success-600 dark:text-success-400 bg-success-100 dark:bg-success-900/30 rounded-md">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-      </svg>
+<div class="textfield">
+    <div class="grid gap-2">
+        <div class="flex">
+            <Label htmlFor={id}>{label}</Label>
+        </div>
+
+        <div class="input-copy flex gap-2">
+            <Input
+                type="text"
+                id={id}
+                name={id}
+                placeholder={placeholder}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+                data-value={value}
+                autoFocus={autoFocus}
+                aria-label={label}
+            />{value}
+            <Button
+                variant="outline"
+                className="copy-btn"
+                data-copy-id={id}
+                aria-label={`Copy ${label} text`}
+                title="Copy to clipboard"
+            >
+                <Copy className="h-4 w-4" />
+            </Button>
+            <Button
+                variant="outline"
+                className="copy-success hidden"
+                aria-label={`Copy ${label} text`}
+                title="Copy to clipboard"
+            >
+                <Check className="h-4 w-4 text-green-600" />
+            </Button>
+        </div>
     </div>
-  </div>
 </div>

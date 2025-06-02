@@ -1,129 +1,214 @@
 ---
-import TextField from './TextField.astro';
+import TextField from "./TextField.astro";
 
 // Case format options
 const caseFormats = [
-  { id: 'original', label: 'Original Text', description: 'Unmodified text' },
-  { id: 'uppercase', label: 'UPPERCASE', description: 'All characters in uppercase' },
-  { id: 'lowercase', label: 'lowercase', description: 'All characters in lowercase' },
-  { id: 'titlecase', label: 'Title Case', description: 'First letter of each word capitalized' },
-  { id: 'sentencecase', label: 'Sentence case', description: 'First letter of each sentence capitalized' },
-  { id: 'togglecase', label: 'ToGgLe CaSe', description: 'Alternating character case' },
-  { id: 'invertcase', label: 'InVeRt CaSe', description: 'Opposite of current casing' },
-  { id: 'camelcase', label: 'camelCase', description: 'No spaces, first word lowercase, rest capitalized' },
-  { id: 'pascalcase', label: 'PascalCase', description: 'No spaces, all words capitalized' },
-  { id: 'snakecase', label: 'snake_case', description: 'Lowercase with underscores' },
-  { id: 'uppersnakecase', label: 'UPPER_SNAKE_CASE', description: 'Uppercase with underscores' },
-  { id: 'kebabcase', label: 'kebab-case', description: 'Lowercase with hyphens' },
-  { id: 'traincase', label: 'Train-Case', description: 'Capitalized with hyphens' },
-  { id: 'flatcase', label: 'flatcase', description: 'No spaces, all lowercase' }
+    { id: "original", label: "Original Text", description: "Unmodified text" },
+    {
+        id: "uppercase",
+        label: "UPPERCASE",
+        description: "All characters in uppercase",
+    },
+    {
+        id: "lowercase",
+        label: "lowercase",
+        description: "All characters in lowercase",
+    },
+    {
+        id: "titlecase",
+        label: "Title Case",
+        description: "First letter of each word capitalized",
+    },
+    {
+        id: "sentencecase",
+        label: "Sentence case",
+        description: "First letter of each sentence capitalized",
+    },
+    {
+        id: "togglecase",
+        label: "ToGgLe CaSe",
+        description: "Alternating character case",
+    },
+    {
+        id: "invertcase",
+        label: "InVeRt CaSe",
+        description: "Opposite of current casing",
+    },
+    {
+        id: "camelcase",
+        label: "camelCase",
+        description: "No spaces, first word lowercase, rest capitalized",
+    },
+    {
+        id: "pascalcase",
+        label: "PascalCase",
+        description: "No spaces, all words capitalized",
+    },
+    {
+        id: "snakecase",
+        label: "snake_case",
+        description: "Lowercase with underscores",
+    },
+    {
+        id: "uppersnakecase",
+        label: "UPPER_SNAKE_CASE",
+        description: "Uppercase with underscores",
+    },
+    {
+        id: "kebabcase",
+        label: "kebab-case",
+        description: "Lowercase with hyphens",
+    },
+    {
+        id: "traincase",
+        label: "Train-Case",
+        description: "Capitalized with hyphens",
+    },
+    {
+        id: "flatcase",
+        label: "flatcase",
+        description: "No spaces, all lowercase",
+    },
 ];
 ---
 
-<div class="max-w-7xl mx-auto py-6">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    {caseFormats.map((format, index) => (
-      <TextField 
-        id={format.id} 
-        label={format.label} 
-        value="" 
-        placeholder="Enter text here..."
-        description={format.description}
-        autoFocus={index === 0}
-      />
-    ))}
-  </div>
+<div class="space-y-4">
+    {
+        caseFormats.map((format, index) => (
+            <TextField
+                id={format.id}
+                label={format.label}
+                value=""
+                placeholder="Enter text here..."
+                description={format.description}
+                autoFocus={index === 0}
+            />
+        ))
+    }
 </div>
 
 <script>
-  import {
-    toUpperCase,
-    toLowerCase,
-    toTitleCase,
-    toSentenceCase,
-    toToggleCase,
-    toInvertCase,
-    toCamelCase,
-    toPascalCase,
-    toSnakeCase,
-    toUpperSnakeCase,
-    toKebabCase,
-    toTrainCase,
-    toFlatCase
-  } from '../utils/caseConversions';
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    // Get all textareas
-    const textareas = document.querySelectorAll('textarea');
-    let originalText = '';
-    
-    // Function to update all text fields
-    const updateAllFields = (text: string) => {
-      originalText = text;
-      
-      // Apply transformations to each field
-      document.querySelector('#original')?.setAttribute('data-value', text);
-      document.querySelector('#uppercase')?.setAttribute('data-value', toUpperCase(text));
-      document.querySelector('#lowercase')?.setAttribute('data-value', toLowerCase(text));
-      document.querySelector('#titlecase')?.setAttribute('data-value', toTitleCase(text));
-      document.querySelector('#sentencecase')?.setAttribute('data-value', toSentenceCase(text));
-      document.querySelector('#togglecase')?.setAttribute('data-value', toToggleCase(text));
-      document.querySelector('#invertcase')?.setAttribute('data-value', toInvertCase(text));
-      document.querySelector('#camelcase')?.setAttribute('data-value', toCamelCase(text));
-      document.querySelector('#pascalcase')?.setAttribute('data-value', toPascalCase(text));
-      document.querySelector('#snakecase')?.setAttribute('data-value', toSnakeCase(text));
-      document.querySelector('#uppersnakecase')?.setAttribute('data-value', toUpperSnakeCase(text));
-      document.querySelector('#kebabcase')?.setAttribute('data-value', toKebabCase(text));
-      document.querySelector('#traincase')?.setAttribute('data-value', toTrainCase(text));
-      document.querySelector('#flatcase')?.setAttribute('data-value', toFlatCase(text));
-      
-      // Update the displayed text in textareas
-      textareas.forEach(textarea => {
-        const id = textarea.id;
-        const value = textarea.getAttribute('data-value') || '';
-        textarea.value = value;
-      });
-    };
-    
-    // Add input event listeners to all textareas
-    textareas.forEach(textarea => {
-      textarea.addEventListener('input', (e) => {
-        const target = e.target as HTMLTextAreaElement;
-        updateAllFields(target.value);
-      });
+    import {
+        toUpperCase,
+        toLowerCase,
+        toTitleCase,
+        toSentenceCase,
+        toToggleCase,
+        toInvertCase,
+        toCamelCase,
+        toPascalCase,
+        toSnakeCase,
+        toUpperSnakeCase,
+        toKebabCase,
+        toTrainCase,
+        toFlatCase,
+    } from "../utils/caseConversions.js";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Get all originals
+        const originals = document.querySelectorAll("input");
+        let originalText = "";
+
+        // Function to update all text fields
+        const updateAllFields = (text: string) => {
+            originalText = text;
+
+            // Apply transformations to each field
+            document
+                .querySelector("#original")
+                ?.setAttribute("data-value", text);
+            document
+                .querySelector("#uppercase")
+                ?.setAttribute("data-value", toUpperCase(text));
+            document
+                .querySelector("#lowercase")
+                ?.setAttribute("data-value", toLowerCase(text));
+            document
+                .querySelector("#titlecase")
+                ?.setAttribute("data-value", toTitleCase(text));
+            document
+                .querySelector("#sentencecase")
+                ?.setAttribute("data-value", toSentenceCase(text));
+            document
+                .querySelector("#togglecase")
+                ?.setAttribute("data-value", toToggleCase(text));
+            document
+                .querySelector("#invertcase")
+                ?.setAttribute("data-value", toInvertCase(text));
+            document
+                .querySelector("#camelcase")
+                ?.setAttribute("data-value", toCamelCase(text));
+            document
+                .querySelector("#pascalcase")
+                ?.setAttribute("data-value", toPascalCase(text));
+            document
+                .querySelector("#snakecase")
+                ?.setAttribute("data-value", toSnakeCase(text));
+            document
+                .querySelector("#uppersnakecase")
+                ?.setAttribute("data-value", toUpperSnakeCase(text));
+            document
+                .querySelector("#kebabcase")
+                ?.setAttribute("data-value", toKebabCase(text));
+            document
+                .querySelector("#traincase")
+                ?.setAttribute("data-value", toTrainCase(text));
+            document
+                .querySelector("#flatcase")
+                ?.setAttribute("data-value", toFlatCase(text));
+
+            // Update the displayed text in originals
+            originals.forEach((textarea) => {
+                const id = textarea.id;
+                const value = textarea.getAttribute("data-value") || "";
+                textarea.value = value;
+            });
+        };
+
+        // Add input event listeners to all originals
+        originals.forEach((textarea) => {
+            textarea.addEventListener("input", (e) => {
+                const target = e.target as HTMLTextAreaElement;
+                updateAllFields(target.value);
+            });
+        });
+
+        // Handle copy buttons
+        const copyButtons = document.querySelectorAll(".copy-btn");
+
+        copyButtons.forEach((button) => {
+            button.addEventListener("click", async () => {
+                const btn = button as HTMLButtonElement;
+                const copyId = btn.getAttribute("data-copy-id");
+                const textarea = document.getElementById(
+                    copyId as string
+                ) as HTMLTextAreaElement;
+                const textToCopy = textarea.value;
+
+                try {
+                    await navigator.clipboard.writeText(textToCopy);
+
+                    // Show success icon
+                    const successIcon = btn.nextElementSibling as HTMLElement;
+                    successIcon.classList.remove("hidden");
+                    btn.classList.remove("inline-flex");
+                    btn.classList.add("hidden");
+
+                    // Hide success icon after 1.5 seconds
+                    setTimeout(() => {
+                        successIcon.classList.add("hidden");
+                        btn.classList.add("inline-flex");
+                        btn.classList.remove("hidden");
+                    }, 1500);
+                } catch (err) {
+                    console.error("Failed to copy text: ", err);
+                }
+            });
+        });
+
+        // Set initial example text
+        const exampleText =
+            "This is an Example Text. Try editing it to see all case conversions instantly!";
+        updateAllFields(exampleText);
     });
-    
-    // Handle copy buttons
-    const copyButtons = document.querySelectorAll('.copy-btn');
-    
-    copyButtons.forEach(button => {
-      button.addEventListener('click', async () => {
-        const btn = button as HTMLButtonElement;
-        const copyId = btn.getAttribute('data-copy-id');
-        const textarea = document.getElementById(copyId as string) as HTMLTextAreaElement;
-        const textToCopy = textarea.value;
-        
-        try {
-          await navigator.clipboard.writeText(textToCopy);
-          
-          // Show success icon
-          const successIcon = btn.nextElementSibling as HTMLElement;
-          successIcon.classList.remove('hidden');
-          btn.classList.add('hidden');
-          
-          // Hide success icon after 1.5 seconds
-          setTimeout(() => {
-            successIcon.classList.add('hidden');
-            btn.classList.remove('hidden');
-          }, 1500);
-        } catch (err) {
-          console.error('Failed to copy text: ', err);
-        }
-      });
-    });
-    
-    // Set initial example text
-    const exampleText = "This is an Example Text. Try editing it to see all case conversions instantly!";
-    updateAllFields(exampleText);
-  });
 </script>
