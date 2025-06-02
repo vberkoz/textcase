@@ -2,18 +2,24 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer
-    class="text-muted-foreground w-full text-center text-xs leading-loose sm:text-sm"
->
-    <p>
-        &copy; {currentYear} Text Case Converter. All rights reserved. Made by{
-            " "
-        }
-        <a
-            href="https://vberkoz.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="font-medium underline underline-offset-4">Vasyl Berkoz</a
-        >
-    </p>
+<footer>
+    <span class="unbreakable">&copy; {currentYear}</span>
+    <span class="unbreakable">Text Case Converter.</span>
+    <span class="unbreakable">All rights reserved.</span>
+    <span class="unbreakable">
+        Made by{" "}
+        <a href="https://vberkoz.com" target="_blank" rel="noopener noreferrer">Vasyl Berkoz</a>
+    </span>
 </footer>
+
+<style>
+    footer {
+        margin-top: 1rem;
+        width: 100%;
+        text-align: center;
+        font-size: smaller;
+    }
+    .unbreakable {
+        text-wrap-mode: nowrap;
+    }
+</style>

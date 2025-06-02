@@ -1,91 +1,139 @@
 ---
-import TextField from "./TextField.astro";
+import Footer from "./Footer.astro";
+import Header from "./Header.astro";
 
 // Case format options
 const caseFormats = [
-    { id: "original", label: "Original Text", description: "Unmodified text" },
-    {
-        id: "uppercase",
-        label: "UPPERCASE",
-        description: "All characters in uppercase",
-    },
-    {
-        id: "lowercase",
-        label: "lowercase",
-        description: "All characters in lowercase",
-    },
-    {
-        id: "titlecase",
-        label: "Title Case",
-        description: "First letter of each word capitalized",
-    },
-    {
-        id: "sentencecase",
-        label: "Sentence case",
-        description: "First letter of each sentence capitalized",
-    },
-    {
-        id: "togglecase",
-        label: "ToGgLe CaSe",
-        description: "Alternating character case",
-    },
-    {
-        id: "invertcase",
-        label: "InVeRt CaSe",
-        description: "Opposite of current casing",
-    },
-    {
-        id: "camelcase",
-        label: "camelCase",
-        description: "No spaces, first word lowercase, rest capitalized",
-    },
-    {
-        id: "pascalcase",
-        label: "PascalCase",
-        description: "No spaces, all words capitalized",
-    },
-    {
-        id: "snakecase",
-        label: "snake_case",
-        description: "Lowercase with underscores",
-    },
-    {
-        id: "uppersnakecase",
-        label: "UPPER_SNAKE_CASE",
-        description: "Uppercase with underscores",
-    },
-    {
-        id: "kebabcase",
-        label: "kebab-case",
-        description: "Lowercase with hyphens",
-    },
-    {
-        id: "traincase",
-        label: "Train-Case",
-        description: "Capitalized with hyphens",
-    },
-    {
-        id: "flatcase",
-        label: "flatcase",
-        description: "No spaces, all lowercase",
-    },
+    { id: "uppercase", label: "UPPERCASE", description: "All characters in uppercase" },
+    { id: "lowercase", label: "lowercase", description: "All characters in lowercase" },
+    { id: "titlecase", label: "Title Case", description: "First letter of each word capitalized" },
+    { id: "sentencecase", label: "Sentence case", description: "First letter of each sentence capitalized" },
+    { id: "togglecase", label: "ToGgLe CaSe", description: "Alternating character case" },
+    { id: "invertcase", label: "InVeRt CaSe", description: "Opposite of current casing" },
+    { id: "camelcase", label: "camelCase", description: "No spaces, first word lowercase, rest capitalized" },
+    { id: "pascalcase", label: "PascalCase", description: "No spaces, all words capitalized" },
+    { id: "snakecase", label: "snake_case", description: "Lowercase with underscores" },
+    { id: "uppersnakecase", label: "UPPER_SNAKE_CASE", description: "Uppercase with underscores" },
+    { id: "kebabcase", label: "kebab-case", description: "Lowercase with hyphens" },
+    { id: "traincase", label: "Train-Case", description: "Capitalized with hyphens" },
+    { id: "flatcase", label: "flatcase", description: "No spaces, all lowercase" },
 ];
 ---
+<div class="page">
+    <Header />
+    <main>
+        <label for="original">
+            <span class="title">Original text</span>
+            <textarea id="original" name="original" placeholder="Enter or paste your text here..."></textarea>
+        </label>
 
-<div class="space-y-4">
-    {
-        caseFormats.map((format, index) => (
-            <TextField
-                id={format.id}
-                label={format.label}
-                value=""
-                placeholder="Enter text here..."
-                description={format.description}
-                autoFocus={index === 0}
-            />
-        ))
-    }
+        <div class="case-formats">
+            {caseFormats.map((format) => (
+                <div class="card">
+                    <span class="content">
+                        <span class="title">{format.label}</span>
+                        <span class="value" id={format.id}></span>
+                    </span>
+                    <span class="action">
+                        <button class="copy-btn" data-copy-id={format.id}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        </button>
+                    </span>
+                </div>
+            ))}
+        </div>
+    </main>
+    <Footer />
 </div>
+
+
+<style>
+    .page {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 16px);
+        padding: 8px;
+    }
+    main {
+        flex: 1;
+    }
+    textarea {
+        border: 1px solid #ccc;
+        border-radius: .5rem;
+        padding: 8px 14px;
+        margin: 4px 0 ;
+        font-size: 14px;
+        font-family: "JetBrains Mono", monospace;
+        width: -webkit-fill-available;
+        transition: box-shadow 0.3s ease;
+    }
+    textarea:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #ccc;
+    }
+    .case-formats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
+        grid-gap: 8px;
+    }
+    .card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        border-radius:.5rem;
+        padding: 8px 14px;
+        font-size: 14px;
+        width: -webkit-fill-available;
+        transition: box-shadow 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 0 0 2px #ccc;
+    }
+    .content {
+        margin-right: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        flex: 1;
+    }
+    .title {
+        word-break: break-all;
+        margin-bottom: 8px;
+        font-weight: 700;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    .value {
+        word-break: break-all;
+        font-family: "JetBrains Mono", monospace;
+    }
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        border: 1px solid #ccc;
+        border-radius: .5rem;
+        cursor: pointer;
+        width: 26px;
+        height: 26px;
+        background-color: #f9f9f9;
+        font-size: 14px;
+        font-weight: 400;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #e9e9e9;
+    }
+    button:active {
+        background-color: #d9d9d9;
+    }
+    button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #ccc;
+    }
+</style>
 
 <script>
     import {
@@ -105,73 +153,30 @@ const caseFormats = [
     } from "../utils/caseConversions.js";
 
     document.addEventListener("DOMContentLoaded", () => {
-        // Get all originals
-        const originals = document.querySelectorAll("input");
-        let originalText = "";
+        const original = document.getElementsByTagName("textarea")[0];
+
+        original.addEventListener("input", (e) => {
+            const target = e.target as HTMLTextAreaElement;
+            updateAllFields(target.value);
+        });
 
         // Function to update all text fields
         const updateAllFields = (text: string) => {
-            originalText = text;
-
-            // Apply transformations to each field
-            document
-                .querySelector("#original")
-                ?.setAttribute("data-value", text);
-            document
-                .querySelector("#uppercase")
-                ?.setAttribute("data-value", toUpperCase(text));
-            document
-                .querySelector("#lowercase")
-                ?.setAttribute("data-value", toLowerCase(text));
-            document
-                .querySelector("#titlecase")
-                ?.setAttribute("data-value", toTitleCase(text));
-            document
-                .querySelector("#sentencecase")
-                ?.setAttribute("data-value", toSentenceCase(text));
-            document
-                .querySelector("#togglecase")
-                ?.setAttribute("data-value", toToggleCase(text));
-            document
-                .querySelector("#invertcase")
-                ?.setAttribute("data-value", toInvertCase(text));
-            document
-                .querySelector("#camelcase")
-                ?.setAttribute("data-value", toCamelCase(text));
-            document
-                .querySelector("#pascalcase")
-                ?.setAttribute("data-value", toPascalCase(text));
-            document
-                .querySelector("#snakecase")
-                ?.setAttribute("data-value", toSnakeCase(text));
-            document
-                .querySelector("#uppersnakecase")
-                ?.setAttribute("data-value", toUpperSnakeCase(text));
-            document
-                .querySelector("#kebabcase")
-                ?.setAttribute("data-value", toKebabCase(text));
-            document
-                .querySelector("#traincase")
-                ?.setAttribute("data-value", toTrainCase(text));
-            document
-                .querySelector("#flatcase")
-                ?.setAttribute("data-value", toFlatCase(text));
-
-            // Update the displayed text in originals
-            originals.forEach((textarea) => {
-                const id = textarea.id;
-                const value = textarea.getAttribute("data-value") || "";
-                textarea.value = value;
-            });
+            document.querySelector("#original")!.innerHTML = text;
+            document.querySelector("#uppercase")!.innerHTML = toUpperCase(text);
+            document.querySelector("#lowercase")!.innerHTML = toLowerCase(text);
+            document.querySelector("#titlecase")!.innerHTML = toTitleCase(text);
+            document.querySelector("#sentencecase")!.innerHTML = toSentenceCase(text);
+            document.querySelector("#togglecase")!.innerHTML = toToggleCase(text);
+            document.querySelector("#invertcase")!.innerHTML = toInvertCase(text);
+            document.querySelector("#camelcase")!.innerHTML = toCamelCase(text);
+            document.querySelector("#pascalcase")!.innerHTML = toPascalCase(text);
+            document.querySelector("#snakecase")!.innerHTML = toSnakeCase(text);
+            document.querySelector("#uppersnakecase")!.innerHTML = toUpperSnakeCase(text);
+            document.querySelector("#kebabcase")!.innerHTML = toKebabCase(text);
+            document.querySelector("#traincase")!.innerHTML = toTrainCase(text);
+            document.querySelector("#flatcase")!.innerHTML = toFlatCase(text);
         };
-
-        // Add input event listeners to all originals
-        originals.forEach((textarea) => {
-            textarea.addEventListener("input", (e) => {
-                const target = e.target as HTMLTextAreaElement;
-                updateAllFields(target.value);
-            });
-        });
 
         // Handle copy buttons
         const copyButtons = document.querySelectorAll(".copy-btn");
@@ -180,35 +185,19 @@ const caseFormats = [
             button.addEventListener("click", async () => {
                 const btn = button as HTMLButtonElement;
                 const copyId = btn.getAttribute("data-copy-id");
-                const textarea = document.getElementById(
-                    copyId as string
-                ) as HTMLTextAreaElement;
-                const textToCopy = textarea.value;
+                const cell = document.getElementById(copyId as string) as HTMLTextAreaElement;
+                const textToCopy = cell.innerText;
 
-                try {
-                    await navigator.clipboard.writeText(textToCopy);
-
-                    // Show success icon
-                    const successIcon = btn.nextElementSibling as HTMLElement;
-                    successIcon.classList.remove("hidden");
-                    btn.classList.remove("inline-flex");
-                    btn.classList.add("hidden");
-
-                    // Hide success icon after 1.5 seconds
-                    setTimeout(() => {
-                        successIcon.classList.add("hidden");
-                        btn.classList.add("inline-flex");
-                        btn.classList.remove("hidden");
-                    }, 1500);
-                } catch (err) {
-                    console.error("Failed to copy text: ", err);
-                }
+                await navigator.clipboard.writeText(textToCopy);
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>';
+                setTimeout(() => {
+                    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+                }, 2000);
             });
         });
 
         // Set initial example text
-        const exampleText =
-            "This is an Example Text. Try editing it to see all case conversions instantly!";
+        const exampleText = "This is an Example Text. Try editing it to see all case conversions instantly!";
         updateAllFields(exampleText);
     });
 </script>
