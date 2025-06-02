@@ -91,7 +91,7 @@ export class Textcase extends Stack {
 
         new BucketDeployment(this, 'TextcaseBucketDeployment', {
             sources: [
-                Source.asset(path.join(process.cwd(), 'dist')),
+                Source.asset(path.join(process.cwd(), '../dist')),
             ],
             destinationBucket: bucket,
             distributionPaths: ['/*'],
