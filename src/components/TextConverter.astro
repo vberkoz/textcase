@@ -73,8 +73,13 @@ const caseFormats = [
     }
     .case-formats {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
+        grid-template-columns: 1fr;
         grid-gap: 8px;
+    }
+    @media (min-width: 600px) {
+        .case-formats {
+            grid-template-columns: 1fr 1fr;
+        }
     }
     .card {
         display: flex;
@@ -86,9 +91,6 @@ const caseFormats = [
         font-size: 14px;
         width: -webkit-fill-available;
         transition: box-shadow 0.3s ease;
-    }
-    .card:hover {
-        box-shadow: 0 0 0 2px #ccc;
     }
     .content {
         margin-right: 8px;
